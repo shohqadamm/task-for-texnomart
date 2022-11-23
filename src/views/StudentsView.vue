@@ -17,7 +17,7 @@
           </label>
           <input v-model="name"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="name" type="text" placeholder="+998">
+            id="name" type="text" placeholder="John">
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="passport">
@@ -25,7 +25,7 @@
           </label>
           <input v-model="course"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="passport" type="text" placeholder="+998">
+            id="passport" type="text" placeholder="Javascript">
         </div>
         <div class="flex items-center justify-between">
           <button

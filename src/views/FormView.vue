@@ -7,15 +7,15 @@
           <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
             Phone
           </label>
-          <input v-model="phone" :class="[isPhone == 'success' ? successClass : errClass]"
+          <input v-model="phone" :class="[isPhone ? successClass : errClass]"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="phone" type="number">
+            id="phone" type="number" placeholder="998912090511">
         </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
             Name
           </label>
-          <input v-model="name" :class="[isName == 'success' ? successClass : errClass]"
+          <input v-model="name" :class="[isName ? successClass : errClass]"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="name" type="text" placeholder="John Doe">
         </div>
@@ -23,7 +23,7 @@
           <label class="block text-gray-700 text-sm font-bold mb-2" for="passport">
             Passport
           </label>
-          <input v-model="passport" :class="[isPassport == 'success' ? successClass : errClass]"
+          <input v-model="passport" :class="[isPassport ? successClass : errClass]"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline uppercase"
             id="passport" type="text" placeholder="AA0548047">
         </div>
@@ -31,7 +31,7 @@
           <label class="block text-gray-700 text-sm font-bold mb-2" for="pinfl">
             PINFL
           </label>
-          <input v-model="pinfl" :class="[isPINFL == 'success' ? successClass : errClass]"
+          <input v-model="pinfl" :class="[isPINFL ? successClass : errClass]"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="pinfl" type="number" placeholder="50511045540020">
         </div>
@@ -39,7 +39,7 @@
           <label class="block text-gray-700 text-sm font-bold mb-2" for="birth-date">
             Birth Date
           </label>
-          <input v-model="birthDate" :class="[isBirthDate == 'success' ? successClass : errClass]"
+          <input v-model="birthDate" :class="[isBirthDate ? successClass : errClass]"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="birth-date" type="date">
         </div>
@@ -63,55 +63,38 @@ export default {
     return {
       phone: "",
       name: null,
-      passport: null,
+      passport: "",
       pinfl: "",
       birthDate: null,
-
       errClass: "border border-red-500",
       successClass: "border border-green-500",
-      isPINFL: null,
-      isPhone: null,
-      isName: null,
-      isPassport: null,
-      isBirthDate: null,
     }
   },
-  watch: {
-    validate(){
-      this.validateForm()
+  computed: {
+    isPINFL(){
+      return this.pinfl.toString().length == 14
+    },
+    isPhone(){
+      return typeof this.phone == 'number'
+    },
+    isPassport(){
+      return /[a-zA-Z]{2}[0-9]{7}/.test(this.passport)
+    },
+    isName(){
+      return this.name
+    },
+    isBirthDate(){
+      return this.birthDate
     }
   },
   methods: {
     validateForm() {
-      if (this.pinfl === "" || this.pinfl == null) {
-        this.isPINFL = 'err'
-      } else {
-        this.isPINFL = 'success'
+      if(this.isPINFL && this.isPhone && this.isPassport && this.isName && this.isBirthDate) {
+        alert('submitted');
+      }else{
+        alert('fill all fields');
+        console.log(this.pinfl.toString().length)
       }
-
-      if (this.phone === "" || this.phone == null) {
-        this.isPhone = 'err'
-      } else {
-        this.isPhone = 'success'
-      }
-
-      if (this.name === "" || this.name == null) {
-        this.isName = 'err'
-      } else {
-        this.isName = 'success'
-      }
-      if (this.passport === "" || this.passport == null) {
-        this.isPassport = 'err'
-      } else {
-        this.isPassport = 'success'
-      }
-      if (this.birthDate === "" || this.birthDate == null) {
-        this.isBirthDate = 'err'
-      } else {
-        this.isBirthDate = 'success'
-      }
-
-
     }
   }
 }
